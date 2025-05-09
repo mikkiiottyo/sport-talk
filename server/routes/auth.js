@@ -1,6 +1,7 @@
 import express from 'express'
 import User from '../models/User.js'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const router = express.Router()
 
@@ -40,8 +41,10 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({success: false, message: "Wrong Credentials"})
         }
 
+        const token = jwt.sign({id: user._id}, "secretkeyofSportTalk2209@#", {expiresIn: "5h"})
 
-        return res.status(200).json({success: true, message:"Login Successfully"})
+
+        return res.status(200).json({success: true, token, user: {name: user.name}, message:"Login Successfully"})
     }catch(error) {
         return res.status(500).json({success: true, message:"Login Failed"})
     }
