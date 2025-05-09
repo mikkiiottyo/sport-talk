@@ -21,7 +21,7 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="border shadow p-6 w-80 bg-white">
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Email</label>
@@ -45,7 +45,7 @@ const Login = () => {
           </div>
           <div className="mb-4">
             <button type="submit" className="w-full bg-teal-600 text-white py-2">
-              Sign Up
+              Login
             </button>
           </div>
         </form>
