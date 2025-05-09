@@ -16,7 +16,7 @@ const Login = () => {
             );
             if(response.data.success) {
                 localStorage.setItem("token", response.data.token)
-                navigate('/register')
+                navigate('/')
             }
             console.log(response)
     } catch(error) {
