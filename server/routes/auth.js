@@ -20,9 +20,9 @@ router.post('/register', async (req, res) => {
 
         await newUser.save()
 
-        return res(200).json({success: true, message:"Account Created Successfully"})
+        return res.status(200).json({success: true, message:"Account Created Successfully"})
     }catch(error) {
-        return res(500).json({success: true, message:"Account Created Failed"})
+        return res.status(500).json({success: true, message:"Account Created Failed"})
     }
 })
 
