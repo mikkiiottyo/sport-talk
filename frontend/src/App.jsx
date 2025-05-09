@@ -1,12 +1,16 @@
 import Signup from "./pages/signup"
+import {BrowserRouter, Routes, Route} from 'react' 
 
 function App() {
   
 
   return (
-    <div>
+    <BrowserRouter>
+    <Routes>
+      <Route path ="/" element={<Home /> }></Route>
+    </Routes>
       <Signup />
-    </div>
+    </BrowserRouter>
   )
 }
 
