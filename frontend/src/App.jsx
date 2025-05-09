@@ -1,5 +1,6 @@
 import Signup from "./pages/signup"
 import {BrowserRouter, Routes, Route} from 'react' 
+import Home from './pages/Home'
 
 function App() {
   
