@@ -18,7 +18,12 @@ const signup = () => {
             <label  classname="block text-grey-700">Password</label>
             <input type="password"  classname="w-full px-3 py-2 border" placeholder='*******' required />
         </div>
-        <button>Sing Up</button>
+        <div className="mb-4">
+        <button type="submit" className="w-full bg-teal-600 text-white py-2 ">Sing Up</button>
+        <p className="text-center">
+            Already have an Account? <a href="">Login</a>
+        </p>
+        </div>
       </form>
       </div>
     </div>
