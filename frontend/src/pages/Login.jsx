@@ -15,6 +15,7 @@ const Login = () => {
              {email, password}
             );
             if(response.data.success) {
+                localStorage.setItem("token", response.data.token)
                 navigate('/register')
             }
             console.log(response)
