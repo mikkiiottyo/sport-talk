@@ -26,4 +26,26 @@ router.post('/register', async (req, res) => {
     }
 })
 
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password} = req.body;
+        const user = await User.findOne({email})
+        if(!user) {
+            return res.status(401).json({success: false, message:"User Not taken"})
+        }
+
+        const checkpassword = await bcrypt.compare(password, user.password)
+
+        if(!checkpassword) {
+            return res.status(401).json({success: false, message: "Wrong Credentials"})
+        }
+
+
+        return res.status(200).json({success: true, message:"Login Successfully"})
+    }catch(error) {
+        return res.status(500).json({success: true, message:"Login Failed"})
+    }
+})
+
+
 export default router
