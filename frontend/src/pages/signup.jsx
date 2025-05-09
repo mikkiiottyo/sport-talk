@@ -1,6 +1,6 @@
 import React from 'react'
 
-const signup = () => {
+const Signup = () => {
   return (
     <div className="flex jusify-center items-center min-h-screen bg-gray-100">
         <div className="border shadow p-6 w-80 bg-white">
@@ -30,4 +30,4 @@ const signup = () => {
   )
 }
 
-export default signup
+export default Signup

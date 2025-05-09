@@ -1,10 +1,11 @@
+import Signup from "./pages/signup"
 
 function App() {
   
 
   return (
-    <div className="text-4xl">
-      SportTalk
+    <div>
+      <Signup />
     </div>
   )
 }
