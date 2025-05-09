@@ -47,6 +47,9 @@ const Login = () => {
             <button type="submit" className="w-full bg-teal-600 text-white py-2">
               Login
             </button>
+            <p className="text-center">
+                Don't have an account? <Link to="/register">Sign Up!</Link>
+            </p>
           </div>
         </form>
       </div>
