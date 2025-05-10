@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 
 const Navbar = () => {
   return (
-   <nav>
-    <div>
+   <nav classAnem="bg-gray-800 p-4 text-white flex justify-between items-center">
+    <div className="text-xl font-bold">
         <Link to="/">SportTalk</Link>
     </div>
     <input
