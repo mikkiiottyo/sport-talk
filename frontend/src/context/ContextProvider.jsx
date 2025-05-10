@@ -4,10 +4,13 @@ import React,{ createContext, useContext, useState } from 'react'
 const authContext = createContext()
 
 const ContextProvider = ({children}) => {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
+    const login = (user) => {
+        setUser(user)
+    }
   return (
     <div>
-      <authContext.Provider value={{user}}>
+      <authContext.Provider value={{user, login}}>
         {children}
         </authContext.Provider>
     </div>
