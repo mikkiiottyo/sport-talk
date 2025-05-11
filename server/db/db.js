@@ -5,7 +5,7 @@ const connectToMongooseDB = async () => {
         await mongoose.connect("mongodb://localhost:27017/SportTalk");
         console.log('Connected to MongoDB')
     } catch (error) {
-        cpmsole.log("Error connecting to MongoDB", error.message);
+        console.log("Error connecting to MongoDB", error.message);
     }
 };
 
