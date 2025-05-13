@@ -3,7 +3,6 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from './pages/Home'
 import Login from "./pages/Login"
 import Sidebar from "./components/Sidebar/Sidebar"
-import Questions from "./components/Questions"
 import Navbar from "./components/Navbar"
 
 
@@ -36,7 +35,6 @@ function App() {
         
         {/* Routes with Sidebar */}
         <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />
-        <Route path="/questions" element={<DashboardLayout><Questions /></DashboardLayout>} />
       </Routes>
     </BrowserRouter>
   )
