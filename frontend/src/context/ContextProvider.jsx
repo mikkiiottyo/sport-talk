@@ -8,9 +8,13 @@ const ContextProvider = ({children}) => {
     const login = (user) => {
         setUser(user)
     }
+    const logout = () => {
+        setUser(null);
+        localStorage.removeItem('user');
+      };
   return (
     <div>
-      <authContext.Provider value={{user, login}}>
+      <authContext.Provider value={{user, login, logout}}>
         {children}
         </authContext.Provider>
     </div>
