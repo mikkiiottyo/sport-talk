@@ -59,6 +59,7 @@ const Login = () => {
             <p className="text-center">
                 Don't have an account? <Link to="/register">Sign Up!</Link>
             </p>
+             <p className="text-center mt-2"> <Link to="/">Home</Link></p>
           </div>
         </form>
       </div>
