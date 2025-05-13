@@ -10,11 +10,6 @@ const Sidebar = () => {
             Questions
           </Link>
         </li>
-        <li>
-          <Link to="/answers" className="block hover:bg-gray-700 p-2 rounded">
-            Answers
-          </Link>
-        </li>
       </ul>
     </div>
   );

@@ -4,7 +4,6 @@ import Home from './pages/Home'
 import Login from "./pages/Login"
 import Sidebar from "./components/Sidebar"
 import Questions from "./components/Questions"
-import Answer from "./components/Answer"
 import Navbar from "./components/Navbar"
 
 
@@ -38,7 +37,6 @@ function App() {
         {/* Routes with Sidebar */}
         <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />
         <Route path="/questions" element={<DashboardLayout><Questions /></DashboardLayout>} />
-        <Route path="/answers" element={<DashboardLayout><Answer /></DashboardLayout>} />
       </Routes>
     </BrowserRouter>
   )
