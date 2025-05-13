@@ -60,7 +60,7 @@ const Signup = () => {
             />
           </div>
           <div className="mb-4">
-            <button type="submit" className="w-full bg-teal-600 text-white py-2">
+            <button type="submit" className="w-full bg-teal-600 text-white py-2 cursor-pointer">
               Sign Up
             </button>
             <p className="text-center mt-2">
