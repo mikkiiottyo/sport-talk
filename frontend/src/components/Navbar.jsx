@@ -27,7 +27,7 @@ const Navbar = () => {
         )
         :
         <>
-        <span className="mr-4">{user.name}</span>
+        <span className="mr-4">Welcome {user.name}!</span>
          <button className="bg-red-500 px-4 py-2 rounded">Logout</button>
         </>
 }
