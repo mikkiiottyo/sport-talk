@@ -5,18 +5,22 @@ import Login from "./pages/Login"
 import Sidebar from "./components/Sidebar"
 import Questions from "./components/Questions"
 import Answer from "./components/Answer"
+import Navbar from "./components/Navbar"
 
 
 
 
 function DashboardLayout({ children }) {
   return (
-    <div className="flex">
+    <div className="flex flex-col h-screen">
+    <Navbar />
+    <div className="flex flex-1">
       <Sidebar />
-      <div className="ml-64 p-6 w-full">
+      <main className="flex-1 p-6 overflow-y-auto">
         {children}
-      </div>
+      </main>
     </div>
+  </div>
   );
 }
 
