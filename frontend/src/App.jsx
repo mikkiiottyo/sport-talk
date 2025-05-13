@@ -2,7 +2,7 @@ import Signup from "./pages/signup"
 import {BrowserRouter, Routes, Route} from 'react-router-dom' 
 import Home from './pages/Home'
 import Login from "./pages/Login"
-import Sidebar from "./components/Sidebar"
+import Sidebar from "./components/Sidebar/Sidebar"
 import Questions from "./components/Questions"
 import Navbar from "./components/Navbar"
 
