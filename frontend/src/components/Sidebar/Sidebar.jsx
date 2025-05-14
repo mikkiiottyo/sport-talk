@@ -14,7 +14,7 @@ const categories = [
   },
   {
     id: 'bets',
-    title: 'Sport Bets Talk',
+    title: 'Bets Talk',
     items: [
       { id: 'bets-nfl',    label: "NFL Picks" },
       { id: 'bets-parlays',label: "Parlays & Odds" },
