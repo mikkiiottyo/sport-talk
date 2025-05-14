@@ -4,26 +4,28 @@ import Home from './pages/Home'
 import Login from "./pages/Login"
 import Sidebar from "./components/Sidebar/Sidebar"
 import Navbar from "./components/Navbar"
+import React, { useState } from 'react'; 
 
 
 
 
-function DashboardLayout({ children }) {
+function DashboardLayout({ selectedTopic, onTopicSelect }) {
   return (
     <div className="flex flex-col h-screen">
-    <Navbar />
-    <div className="flex flex-1">
-      <Sidebar />
-      <main className="flex-1 p-6 overflow-y-auto">
-        {children}
-      </main>
+      <Navbar />
+      <div className="flex flex-1">
+        <Sidebar onTopicSelect={onTopicSelect} />
+        <main className="flex-1 p-6 overflow-y-auto">
+          <Home selectedTopic={selectedTopic} />
+        </main>
+      </div>
     </div>
-  </div>
   );
 }
 
-
 function App() {
+  const [selectedTopic, setSelectedTopic] = useState(null);
+
   
 
   return (
@@ -34,7 +36,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         
         {/* Routes with Sidebar */}
-        <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />
+        <Route path="/" 
+        element={<DashboardLayout
+         selectedTopic={selectedTopic}
+         onTopicSelect={setSelectedTopic}
+         />} 
+         />
       </Routes>
     </BrowserRouter>
   )
