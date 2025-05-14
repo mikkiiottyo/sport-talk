@@ -75,7 +75,6 @@ const Home = ({ selectedTopic }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows="4"
-                required
               />
               <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">
                 Submit Question
