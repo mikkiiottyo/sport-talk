@@ -53,7 +53,7 @@ const Home = ({ selectedTopic }) => {
       {selectedTopic && user && (
         <div>
           <button
-            className="bg-green-600 text-white px-4 py-2 rounded mb-4"
+            className="bg-green-600 text-white px-4 py-2 rounded mb-4 cursor-pointer"
             onClick={() => setShowForm(!showForm)}
           >
             {showForm ? 'Cancel' : 'Ask a Question'}
@@ -76,7 +76,7 @@ const Home = ({ selectedTopic }) => {
                 onChange={(e) => setDescription(e.target.value)}
                 rows="4"
               />
-              <button className="bg-blue-500 text-white px-4 py-2 rounded" type="submit">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer" type="submit">
                 Submit Question
               </button>
             </form>
