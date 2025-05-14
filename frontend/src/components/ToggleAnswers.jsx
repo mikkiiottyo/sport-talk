@@ -39,7 +39,7 @@ const ToggleAnswers = ({ questionId }) => {
 
   return (
     <div className="mt-2">
-      <button onClick={handleToggle} className="text-blue-500 underline">
+      <button onClick={handleToggle} className="text-blue-500 underline cursor-pointer">
         {show ? 'Hide' : 'View'} Answers
       </button>
 
