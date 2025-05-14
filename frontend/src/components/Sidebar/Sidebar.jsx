@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import SidebarCategory from './SidebarCategory';
 
 const categories = [
