@@ -23,7 +23,7 @@ const categories = [
     id: 'goat',
     title: 'Goat talk',
     items: [
-      { id: 'best-nfl', label:"Best NFl PLayer"},
+      { id: 'best-nfl', label:"Best NFL PLayer"},
       { id: 'best-nba', label:"Best NBA PLayer"},
       { id: 'best-mlb', label:"Best MLB PLayer"},
     ],
