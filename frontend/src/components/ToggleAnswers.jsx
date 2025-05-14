@@ -64,7 +64,7 @@ const ToggleAnswers = ({ questionId }) => {
                 onChange={(e) => setText(e.target.value)}
                 required
               />
-              <button className="bg-blue-600 text-white px-4 py-2 rounded" type="submit">
+              <button className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer" type="submit">
                 Submit Answer
               </button>
             </form>
