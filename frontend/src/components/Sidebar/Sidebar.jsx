@@ -40,7 +40,7 @@ const categories = [
 ];
 
 const Sidebar = ({ onTopicSelect }) => (
-  <div className="bg-gray-900 w-64 text-white h-full p-4 overflow-y-auto">
+  <div className="bg-gray-700 w-64 text-white h-full p-4 overflow-y-auto">
     <h2 className="text-2xl font-bold mb-6">Topics</h2>
     {categories.map(cat => (
       <SidebarCategory
