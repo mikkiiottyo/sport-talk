@@ -79,14 +79,14 @@ const ToggleAnswers = ({ questionId }) => {
             {answers.map((a) => (
               <li key={a._id} className="border p-2 rounded mb-2">
                 {a.answerText}
-                <div>
-                  <p>
+                <div className="flex items-center justify-between mt-2">
+                  <p className="text-sm text-gray-400">
                     - {a.user?.name} • {dayjs(a.createdAt).fromNow()}
                   </p>
                   <div>
                     <button
                     onClick={() => handleAnswerVote(a._id, 'up')}
-                    className="text-green-600 hover:text-green-800 text-sm"
+                    className="text-green-600 hover:text-green-800 text-sm cursor-pointer"
                     title="Upvote"
                     >
                       <FaArrowUp />
@@ -94,7 +94,7 @@ const ToggleAnswers = ({ questionId }) => {
                     <span className="font-semibold text-sm">{a.votes ?? 0}</span>
                     <button
                     onClick={() => handleAnswerVote(a.id, 'down')}
-                    className="text-red-600 hover:text-red-800 text-sm"
+                    className="text-red-600 hover:text-red-800 text-sm cursor-pointer"
                     title="Downvote"
                     >
                       <FaArrowDown />
