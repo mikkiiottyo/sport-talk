@@ -99,6 +99,9 @@ const Home = ({ selectedTopic, searchQuery }) => {
       {filteredQuestions.map((q) => (
     <div key={q._id} className="mb-4 p-4 border rounded bg-white shadow">
       <h3 className="text-lg font-semibold">{q.title}</h3>
+      <p className="text-xs font-semibold text-indigo-700 bg-indigo-100 inline-block px-2 py-1 rounded mb-1">
+        {q.answerCount ?? 0} {q.answerCount ===1 ? 'answer' : 'answers'}
+      </p>
       <p>{q.description}</p>
       <p className="text-sm text-gray-500">Asked by {q.user?.name}</p>
       <ToggleAnswers questionId={q._id} />
