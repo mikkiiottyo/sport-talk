@@ -33,6 +33,10 @@ const Home = ({ selectedTopic }) => {
         category: selectedTopic.title,
         subcategory: selectedTopic.id,
         userId: user._id, 
+      }, {
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       });
       setTitle('');
       setDescription('');
