@@ -34,4 +34,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.patch('/:id/vote', authMiddleware, async (req, res) => {
+  const { voteType } = req.body; 
+  const voteChange = voteType === 'up' ? 1 : -1;
+
+  try {
+    const question = await Question.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { votes: voteChange } },
+      { new: true }
+    );
+    res.status(200).json(question);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to update vote', error: err.message });
+  }
+});
+
 export default router;
