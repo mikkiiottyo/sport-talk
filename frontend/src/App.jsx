@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import Login from "./pages/Login"
 import Sidebar from "./components/Sidebar/Sidebar"
 import Navbar from "./components/Navbar"
-import React, { useState } from 'react'; 
+import { useState } from 'react'; 
 
 
 

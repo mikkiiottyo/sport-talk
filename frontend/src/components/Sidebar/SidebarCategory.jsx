@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const SidebarCategory = ({ title, items = [], onItemClick }) => {
   const [isOpen, setIsOpen] = useState(false);
