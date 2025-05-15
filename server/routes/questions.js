@@ -1,9 +1,10 @@
 import express from 'express';
 import Question from '../models/Question.js';
+import authMiddleware from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/',authMiddleware, async (req, res) => {
   const { title, description, category, subcategory, userId } = req.body;
   try {
     const question = await Question.create({ title, description, category, subcategory, user: userId });
