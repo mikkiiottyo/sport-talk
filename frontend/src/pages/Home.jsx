@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/ContextProvider';
 import ToggleAnswers from '../components/ToggleAnswers';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+
+dayjs.extend(relativeTime);
+
 
 const Home = ({ selectedTopic, searchQuery }) => {
   const { user } = useAuth();
@@ -103,7 +109,7 @@ const Home = ({ selectedTopic, searchQuery }) => {
         {q.answerCount ?? 0} {q.answerCount ===1 ? 'answer' : 'answers'}
       </p>
       <p>{q.description}</p>
-      <p className="text-sm text-gray-500">Asked by {q.user?.name}</p>
+      <p className="text-sm text-gray-500">Asked by {q.user?.name} • {dayjs(q.createdAt).fromNow()}</p>
       <ToggleAnswers questionId={q._id} />
   </div>
 ))}
