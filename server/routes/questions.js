@@ -1,6 +1,7 @@
 import express from 'express';
 import Question from '../models/Question.js';
 import authMiddleware from '../middleware/middleware.js';
+import Answer from '../models/Answers.js';
 
 const router = express.Router();
 
@@ -18,7 +19,16 @@ router.get('/', async (req, res) => {
   const { subcategory } = req.query;
   try {
     const questions = await Question.find({ subcategory }).populate('user', 'name');
-    res.status(200).json(questions);
+    const enrichedQuestions = await Promise.all(
+      questions.map(async (q) => {
+        const answerCount = await Answer.countDocuments({ questionId: q._id });
+        return {
+          ...q._doc,
+          answerCount,
+        };
+      })
+    );
+    res.status(200).json(enrichedQuestions);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch questions' });
   }
