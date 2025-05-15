@@ -1,9 +1,10 @@
 import express from 'express';
 import Answer from '../models/Answers.js';
+import authMiddleware from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/',authMiddleware, async (req, res) => {
   const { questionId, answerText, userId } = req.body;
   try {
     const answer = await Answer.create({ questionId, answerText, user: userId });
