@@ -1,6 +1,11 @@
 import  { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/ContextProvider';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+
+dayjs.extend(relativeTime);
 
 const ToggleAnswers = ({ questionId }) => {
   const { user } = useAuth();
@@ -54,7 +59,7 @@ const ToggleAnswers = ({ questionId }) => {
             {answers.map((a) => (
               <li key={a._id} className="border p-2 rounded mb-2">
                 {a.answerText}
-                <p className="text-sm text-gray-400">— {a.user?.name}</p>
+                <p className="text-sm text-gray-400">— {a.user?.name} • {dayjs(a.createdAt).fromNow()}</p>
               </li>
             ))}
           </ul>
