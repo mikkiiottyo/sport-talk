@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/ContextProvider"
 
-const Navbar = () => {
+const Navbar = ({ setSearchQuery }) => {
     const {user, logout} = useAuth();
     const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ const handleLogout = () => {
     <input
     type="text"
     placeholder="Questions Asked"
+    onChange={(e) => setSearchQuery(e.target.value)}
     className="bg-gray-600 px-4 py-2 rounded"
      />
      <div>
