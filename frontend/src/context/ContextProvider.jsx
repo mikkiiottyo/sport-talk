@@ -9,9 +9,10 @@ const ContextProvider = ({children}) => {
   return storedUser ? JSON.parse(storedUser) : null;
 });
 
-    const login = (user) => {
-        setUser(user)
-    }
+   const login = (user) => {
+  setUser(user);
+  localStorage.setItem('user', JSON.stringify(user));
+};
     const logout = () => {
         setUser(null);
         localStorage.removeItem('user');
