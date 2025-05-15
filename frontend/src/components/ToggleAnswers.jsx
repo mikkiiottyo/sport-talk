@@ -24,6 +24,10 @@ const ToggleAnswers = ({ questionId }) => {
         questionId,
         answerText: text,
         userId: user._id
+      }, {
+        headers: {
+          Authoriztion: `Bearer ${localStorage.getItem('token')}`
+        }
       });
       setText('');
       fetchAnswers(); 
