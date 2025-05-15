@@ -1,4 +1,4 @@
-import React from 'react';
+
 import SidebarCategory from './SidebarCategory';
 
 const categories = [
