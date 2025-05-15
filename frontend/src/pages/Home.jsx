@@ -128,7 +128,7 @@ const Home = ({ selectedTopic, searchQuery }) => {
     <div className="flex items-center space-x-2 mb-2">
       <button
         onClick={() => handleVote(q._id, 'up')}
-        className="text-green-600 hover:text-green-800 text-xl"
+        className="text-green-600 hover:text-green-800 text-xl cursor-pointer"
         title="Upvote"
       >
         <FaArrowUp />
@@ -136,7 +136,7 @@ const Home = ({ selectedTopic, searchQuery }) => {
       <span className="font-semibold">{q.votes ?? 0}</span>
       <button
         onClick={() => handleVote(q._id, 'down')}
-        className="text-red-600 hover:text-red-800 text-xl"
+        className="text-red-600 hover:text-red-800 text-xl cursor-pointer"
         title="Downvote"
       >
         <FaArrowDown />
