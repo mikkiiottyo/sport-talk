@@ -9,14 +9,14 @@ import React, { useState } from 'react';
 
 
 
-function DashboardLayout({ selectedTopic, onTopicSelect }) {
+function DashboardLayout({ selectedTopic, onTopicSelect, searchQuery, setSearchQuery }) {
   return (
     <div className="flex flex-col h-screen">
-      <Navbar />
+      <Navbar setSearchQuery={setSearchQuery}  />
       <div className="flex flex-1">
         <Sidebar onTopicSelect={onTopicSelect} />
         <main className="flex-1 p-6 overflow-y-auto">
-          <Home selectedTopic={selectedTopic} />
+          <Home selectedTopic={selectedTopic} searchQuery={searchQuery} />
         </main>
       </div>
     </div>
@@ -25,6 +25,7 @@ function DashboardLayout({ selectedTopic, onTopicSelect }) {
 
 function App() {
   const [selectedTopic, setSelectedTopic] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   
 
@@ -38,8 +39,10 @@ function App() {
         {/* Routes with Sidebar */}
         <Route path="/" 
         element={<DashboardLayout
-         selectedTopic={selectedTopic}
-         onTopicSelect={setSelectedTopic}
+        selectedTopic={selectedTopic}
+        onTopicSelect={setSelectedTopic}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
          />} 
          />
       </Routes>
