@@ -1,6 +1,7 @@
 import  { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/ContextProvider';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -31,7 +32,7 @@ const ToggleAnswers = ({ questionId }) => {
         userId: user._id
       }, {
         headers: {
-          Authoriztion: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
       setText('');
@@ -46,6 +47,25 @@ const ToggleAnswers = ({ questionId }) => {
     if (!show) fetchAnswers();
   };
 
+  const handleAnswerVote = async (id, voteType) => {
+  try {
+    const res = await axios.patch(
+      `http://localhost:5000/api/answers/${id}/vote`,
+      { voteType },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+    setAnswers((prev) =>
+      prev.map((a) => (a._id === id ? { ...a, votes: res.data.votes } : a))
+    );
+  } catch (err) {
+    console.error('Answer vote failed:', err);
+  }
+};
+
   return (
     <div className="mt-2">
       <button onClick={handleToggle} className="text-blue-500 underline cursor-pointer">
@@ -59,7 +79,28 @@ const ToggleAnswers = ({ questionId }) => {
             {answers.map((a) => (
               <li key={a._id} className="border p-2 rounded mb-2">
                 {a.answerText}
-                <p className="text-sm text-gray-400">— {a.user?.name} • {dayjs(a.createdAt).fromNow()}</p>
+                <div>
+                  <p>
+                    - {a.user?.name} • {dayjs(a.createdAt).fromNow()}
+                  </p>
+                  <div>
+                    <button
+                    onClick={() => handleAnswerVote(a._id, 'up')}
+                    className="text-green-600 hover:text-green-800 text-sm"
+                    title="Upvote"
+                    >
+                      <FaArrowUp />
+                    </button>
+                    <span className="font-semibold text-sm">{a.votes ?? 0}</span>
+                    <button
+                    onClick={() => handleAnswerVote(a.id, 'down')}
+                    className="text-red-600 hover:text-red-800 text-sm"
+                    title="Downvote"
+                    >
+                      <FaArrowDown />
+                    </button>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
