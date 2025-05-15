@@ -6,6 +6,7 @@ const categories = [
     id: 'fantasy',
     title: 'Fantasy Talk',
     items: [
+      { id: 'fantasy-top',   label: "Top Players" },
       { id: 'fantasy-hurt',   label: "Who's Hurt" },
       { id: 'fantasy-sleepers',label: "Sleepers" },
       { id: 'fantasy-whotoplay', label: "Who-to-Play" },
@@ -15,8 +16,10 @@ const categories = [
     id: 'bets',
     title: 'Bets Talk',
     items: [
-      { id: 'bets-nfl',    label: "NFL Picks" },
+      { id: 'bets-hot',label: "Hot Bets" },
       { id: 'bets-parlays',label: "Parlays & Odds" },
+      { id: 'bets-dog',label: "Underdog Bets" },
+      { id: 'bets-nfl',    label: "NFL Picks" },
     ],
   },
   {
