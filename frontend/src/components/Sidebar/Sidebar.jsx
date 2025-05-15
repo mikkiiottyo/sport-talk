@@ -1,4 +1,3 @@
-
 import SidebarCategory from './SidebarCategory';
 
 const categories = [
