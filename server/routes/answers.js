@@ -39,4 +39,37 @@ router.patch('/:id/vote', authMiddleware, async (req, res) => {
   }
 });
 
+router.patch('/:id', authMiddleware, async (req, res) => {
+  const { answerText } = req.body;
+  try {
+    const answer = await Answer.findById(req.params.id);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
+
+    if (answer.user.toString() !== req.user.id)
+      return res.status(403).json({ message: 'Unauthorized' });
+
+    answer.answerText = answerText;
+    await answer.save();
+
+    res.status(200).json(answer);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to edit answer', error: err.message });
+  }
+});
+
+router.delete('/:id', authMiddleware, async (req, res) => {
+  try {
+    const answer = await Answer.findById(req.params.id);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
+
+    if (answer.user.toString() !== req.user.id)
+      return res.status(403).json({ message: 'Unauthorized' });
+
+    await answer.deleteOne();
+    res.status(200).json({ message: 'Answer deleted' });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to delete answer', error: err.message });
+  }
+});
+
 export default router;
