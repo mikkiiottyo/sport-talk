@@ -7,7 +7,7 @@ const SidebarCategory = ({ title, items = [], onItemClick }) => {
     <div className="mb-4">
       <button
         onClick={() => setIsOpen(open => !open)}
-        className="w-full text-left font-semibold px-4 py-2 hover:bg-gray-700 rounded text-white"
+        className="w-full text-left font-semibold px-4 py-2 hover:bg-gray-700 rounded text-white cursor-pointer"
       >
         {title}
       </button>
