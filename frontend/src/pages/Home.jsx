@@ -3,12 +3,17 @@ import axios from 'axios';
 import { useAuth } from '../context/ContextProvider';
 import ToggleAnswers from '../components/ToggleAnswers';
 
-const Home = ({ selectedTopic }) => {
+const Home = ({ selectedTopic, searchQuery }) => {
   const { user } = useAuth();
   const [questions, setQuestions] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+
+  const filteredQuestions = questions.filter(q =>
+    q.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    q.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -89,13 +94,12 @@ const Home = ({ selectedTopic }) => {
       )}
 
       <div>
-      {questions.map((q) => (
-  <div key={q._id} className="mb-4 p-4 border rounded bg-white shadow">
-    <h3 className="text-lg font-semibold">{q.title}</h3>
-    <p>{q.description}</p>
-    <p className="text-sm text-gray-500">Asked by {q.user?.name}</p>
-
-    <ToggleAnswers questionId={q._id} />
+      {filteredQuestions.map((q) => (
+    <div key={q._id} className="mb-4 p-4 border rounded bg-white shadow">
+      <h3 className="text-lg font-semibold">{q.title}</h3>
+      <p>{q.description}</p>
+      <p className="text-sm text-gray-500">Asked by {q.user?.name}</p>
+      <ToggleAnswers questionId={q._id} />
   </div>
 ))}
       </div>
