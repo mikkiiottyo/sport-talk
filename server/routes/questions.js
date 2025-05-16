@@ -18,7 +18,7 @@ router.post('/',authMiddleware, async (req, res) => {
 router.get('/', async (req, res) => {
   const { subcategory } = req.query;
   try {
-    const questions = await Question.find({ subcategory }).populate('user', 'name');
+    const questions = await Question.find({ subcategory }).sort({ createdAt: -1 }).populate('user', 'name');
     const enrichedQuestions = await Promise.all(
       questions.map(async (q) => {
         const answerCount = await Answer.countDocuments({ questionId: q._id });
