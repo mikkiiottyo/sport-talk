@@ -7,7 +7,8 @@ const QuestionSchema = new mongoose.Schema({
   subcategory: String,
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
-  votes: { type: Number, default: 0 }
+  votes: { type: Number, default: 0 },
+  votedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 export default mongoose.model('Question', QuestionSchema);
