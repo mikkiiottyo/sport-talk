@@ -35,15 +35,22 @@ router.get('/', async (req, res) => {
 });
 
 router.patch('/:id/vote', authMiddleware, async (req, res) => {
-  const { voteType } = req.body; 
-  const voteChange = voteType === 'up' ? 1 : -1;
+  const { voteType } = req.body;
+  const userId = req.user.id;
 
   try {
-    const question = await Question.findByIdAndUpdate(
-      req.params.id,
-      { $inc: { votes: voteChange } },
-      { new: true }
-    );
+    const question = await Question.findById(req.params.id);
+    if (!question) return res.status(404).json({ message: 'Question not found' });
+
+    if (question.votedBy.includes(userId)) {
+      return res.status(400).json({ message: 'You already voted on this question' });
+    }
+
+    const voteChange = voteType === 'up' ? 1 : -1;
+    question.votes += voteChange;
+    question.votedBy.push(userId);
+    await question.save();
+
     res.status(200).json(question);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update vote', error: err.message });
