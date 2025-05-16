@@ -16,6 +16,9 @@ const Home = ({ selectedTopic, searchQuery }) => {
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [editQuestionId, setEditQuestionId] = useState(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editDescription, setEditDescription] = useState('');
 
   const filteredQuestions = questions.filter(q =>
     q.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -44,9 +47,9 @@ const Home = ({ selectedTopic, searchQuery }) => {
         description,
         category: selectedTopic.title,
         subcategory: selectedTopic.id,
-        userId: user._id, 
+        userId: user._id,
       }, {
-        headers:{
+        headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
@@ -61,23 +64,23 @@ const Home = ({ selectedTopic, searchQuery }) => {
   };
 
   const handleVote = async (id, voteType) => {
-  try {
-    const res = await axios.patch(
-      `http://localhost:5000/api/questions/${id}/vote`,
-      { voteType },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }
-    );
-    setQuestions((prev) =>
-      prev.map((q) => (q._id === id ? { ...q, votes: res.data.votes } : q))
-    );
-  } catch (err) {
-    console.error('Vote failed:', err);
-  }
-};
+    try {
+      const res = await axios.patch(
+        `http://localhost:5000/api/questions/${id}/vote`,
+        { voteType },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      setQuestions((prev) =>
+        prev.map((q) => (q._id === id ? { ...q, votes: res.data.votes } : q))
+      );
+    } catch (err) {
+      console.error('Vote failed:', err);
+    }
+  };
 
   return (
     <div>
@@ -88,13 +91,11 @@ const Home = ({ selectedTopic, searchQuery }) => {
       {selectedTopic && user && (
         <div>
           <button
-  className={`${
-    showForm ? 'bg-red-600' : 'bg-green-600'
-  } text-white px-4 py-2 rounded mb-4 cursor-pointer`}
-  onClick={() => setShowForm(!showForm)}
->
-  {showForm ? 'Cancel' : 'Ask a Question'}
-</button>
+            className={`${showForm ? 'bg-red-600' : 'bg-green-600'} text-white px-4 py-2 rounded mb-4 cursor-pointer`}
+            onClick={() => setShowForm(!showForm)}
+          >
+            {showForm ? 'Cancel' : 'Ask a Question'}
+          </button>
 
           {showForm && (
             <form onSubmit={handleQuestionSubmit} className="mb-6">
@@ -122,38 +123,120 @@ const Home = ({ selectedTopic, searchQuery }) => {
       )}
 
       <div>
-      {filteredQuestions.map((q) => (
-  <div key={q._id} className="mb-4 p-4 border rounded bg-white shadow">
+        {filteredQuestions.map((q) => (
+          <div key={q._id} className="mb-4 p-4 border rounded bg-white shadow">
+            <div className="flex items-center space-x-2 mb-2">
+              <button
+                onClick={() => handleVote(q._id, 'up')}
+                className="text-green-600 hover:text-green-800 text-xl"
+                title="Upvote"
+              >
+                <FaArrowUp />
+              </button>
+              <span className="font-semibold">{q.votes ?? 0}</span>
+              <button
+                onClick={() => handleVote(q._id, 'down')}
+                className="text-red-600 hover:text-red-800 text-xl"
+                title="Downvote"
+              >
+                <FaArrowDown />
+              </button>
+            </div>
 
-    <div className="flex items-center space-x-2 mb-2">
-      <button
-        onClick={() => handleVote(q._id, 'up')}
-        className="text-green-600 hover:text-green-800 text-xl cursor-pointer"
-        title="Upvote"
-      >
-        <FaArrowUp />
-      </button>
-      <span className="font-semibold">{q.votes ?? 0}</span>
-      <button
-        onClick={() => handleVote(q._id, 'down')}
-        className="text-red-600 hover:text-red-800 text-xl cursor-pointer"
-        title="Downvote"
-      >
-        <FaArrowDown />
-      </button>
-    </div>
+            {editQuestionId === q._id ? (
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  try {
+                    await axios.patch(`http://localhost:5000/api/questions/${q._id}`, {
+                      title: editTitle,
+                      description: editDescription,
+                    }, {
+                      headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                      }
+                    });
+                    setEditQuestionId(null);
+                    const res = await axios.get(`http://localhost:5000/api/questions?subcategory=${selectedTopic.id}`);
+                    setQuestions(res.data);
+                  } catch (err) {
+                    console.error('Edit failed:', err);
+                  }
+                }}
+              >
+                <input
+                  type="text"
+                  className="w-full border p-2 mb-2"
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  placeholder="Title"
+                  required
+                />
+                <textarea
+                  className="w-full border p-2 mb-2"
+                  value={editDescription}
+                  onChange={(e) => setEditDescription(e.target.value)}
+                  placeholder="Description"
+                />
+                <div className="flex justify-end space-x-2">
+                  <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">Save</button>
+                  <button
+                    type="button"
+                    onClick={() => setEditQuestionId(null)}
+                    className="bg-gray-400 text-white px-2 py-1 rounded"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <>
+                <h3 className="text-lg font-semibold">{q.title}</h3>
+                <p className="text-xs font-semibold text-indigo-700 bg-indigo-100 inline-block px-2 py-1 rounded mb-1">
+                  {q.answerCount ?? 0} {q.answerCount === 1 ? 'answer' : 'answers'}
+                </p>
+                <p>{q.description}</p>
+                <p className="text-sm text-gray-500">
+                  Asked by {q.user?.name} • {dayjs(q.createdAt).fromNow()}
+                </p>
+                {user && q.user?._id === user._id && (
+                  <div className="flex space-x-2 text-sm mt-1">
+                    <button
+                      onClick={() => {
+                        setEditQuestionId(q._id);
+                        setEditTitle(q.title);
+                        setEditDescription(q.description);
+                      }}
+                      className="text-blue-600 hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={async () => {
+                        try {
+                          await axios.delete(`http://localhost:5000/api/questions/${q._id}`, {
+                            headers: {
+                              Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            },
+                          });
+                          const res = await axios.get(`http://localhost:5000/api/questions?subcategory=${selectedTopic.id}`);
+                          setQuestions(res.data);
+                        } catch (err) {
+                          console.error('Delete failed:', err);
+                        }
+                      }}
+                      className="text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
 
-    <h3 className="text-lg font-semibold">{q.title}</h3>
-    <p className="text-xs font-semibold text-indigo-700 bg-indigo-100 inline-block px-2 py-1 rounded mb-1">
-      {q.answerCount ?? 0} {q.answerCount === 1 ? 'answer' : 'answers'}
-    </p>
-    <p>{q.description}</p>
-    <p className="text-sm text-gray-500">
-      Asked by {q.user?.name} • {dayjs(q.createdAt).fromNow()}
-    </p>
-    <ToggleAnswers questionId={q._id} />
-  </div>
-))}
+            <ToggleAnswers questionId={q._id} />
+          </div>
+        ))}
       </div>
     </div>
   );
