@@ -5,7 +5,8 @@ const AnswerSchema = new mongoose.Schema({
   answerText: { type: String, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
-   votes: { type: Number, default: 0 }
+  votes: { type: Number, default: 0 },
+  votedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 const Answer = mongoose.model('Answer', AnswerSchema);
