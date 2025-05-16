@@ -11,16 +11,16 @@ dayjs.extend(relativeTime);
 
 
 const Home = ({ selectedTopic, searchQuery }) => {
-  const { user } = useAuth();
-  const [questions, setQuestions] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [editQuestionId, setEditQuestionId] = useState(null);
-  const [editTitle, setEditTitle] = useState('');
-  const [editDescription, setEditDescription] = useState('');
+const { user } = useAuth();
+const [questions, setQuestions] = useState([]);
+const [showForm, setShowForm] = useState(false);
+const [title, setTitle] = useState('');
+const [description, setDescription] = useState('');
+const [editQuestionId, setEditQuestionId] = useState(null);
+const [editTitle, setEditTitle] = useState('');
+const [editDescription, setEditDescription] = useState('');
 
-  const filteredQuestions = questions.filter(q =>
+const filteredQuestions = questions.filter(q =>
     q.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     q.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -124,7 +124,18 @@ const Home = ({ selectedTopic, searchQuery }) => {
 
       <div>
         {filteredQuestions.map((q) => (
-          <div key={q._id} className="mb-4 p-4 border rounded bg-white shadow">
+          <div
+            key={q._id}
+            className={`mb-4 p-4 border rounded shadow bg-white ${
+              user && q.user?._id === user._id ? 'border-green-900 bg-green-500' : ''
+            }`}
+          >
+            {user && q.user?._id === user._id && (
+              <span className="text-xs font-semibold text-blue-700 bg-blue-200 px-2 py-1 rounded mb-2 inline-block">
+                Your Question
+              </span>
+            )}
+
             <div className="flex items-center space-x-2 mb-2">
               <button
                 onClick={() => handleVote(q._id, 'up')}
