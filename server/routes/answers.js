@@ -24,18 +24,25 @@ router.get('/:questionId', async (req, res) => {
 });
 
 router.patch('/:id/vote', authMiddleware, async (req, res) => {
-  const { voteType } = req.body; 
-  const voteChange = voteType === 'up' ? 1 : -1;
+  const { voteType } = req.body;
+  const userId = req.user.id;
 
   try {
-    const answer = await Answer.findByIdAndUpdate(
-      req.params.id,
-      { $inc: { votes: voteChange } },
-      { new: true }
-    );
+    const answer = await Answer.findById(req.params.id);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
+
+    if (answer.votedBy.includes(userId)) {
+      return res.status(400).json({ message: 'You already voted on this answer' });
+    }
+
+    const voteChange = voteType === 'up' ? 1 : -1;
+    answer.votes += voteChange;
+    answer.votedBy.push(userId);
+    await answer.save();
+
     res.status(200).json(answer);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to update answer vote', error: err.message });
+    res.status(500).json({ message: 'Failed to update vote', error: err.message });
   }
 });
 
