@@ -127,7 +127,7 @@ const filteredQuestions = questions.filter(q =>
           <div
             key={q._id}
             className={`mb-4 p-4 border rounded shadow bg-white ${
-              user && q.user?._id === user._id ? 'border-green-900 bg-green-500' : ''
+              user && q.user?._id === user._id ? 'border-green-500 bg-green-500' : ''
             }`}
           >
             {user && q.user?._id === user._id && (
@@ -139,7 +139,7 @@ const filteredQuestions = questions.filter(q =>
             <div className="flex items-center space-x-2 mb-2">
               <button
                 onClick={() => handleVote(q._id, 'up')}
-                className="text-green-600 hover:text-green-800 text-xl"
+                className="text-green-600 hover:text-green-800 text-xl cursor-pointer"
                 title="Upvote"
               >
                 <FaArrowUp />
@@ -147,7 +147,7 @@ const filteredQuestions = questions.filter(q =>
               <span className="font-semibold">{q.votes ?? 0}</span>
               <button
                 onClick={() => handleVote(q._id, 'down')}
-                className="text-red-600 hover:text-red-800 text-xl"
+                className="text-red-600 hover:text-red-800 text-xl cursor-pointer"
                 title="Downvote"
               >
                 <FaArrowDown />
@@ -190,11 +190,11 @@ const filteredQuestions = questions.filter(q =>
                   placeholder="Description"
                 />
                 <div className="flex justify-end space-x-2">
-                  <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded">Save</button>
+                  <button type="submit" className="bg-blue-500 text-white px-2 py-1 rounded cursor-pointer">Save</button>
                   <button
                     type="button"
                     onClick={() => setEditQuestionId(null)}
-                    className="bg-gray-400 text-white px-2 py-1 rounded"
+                    className="bg-gray-400 text-white px-2 py-1 rounded cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -218,7 +218,7 @@ const filteredQuestions = questions.filter(q =>
                         setEditTitle(q.title);
                         setEditDescription(q.description);
                       }}
-                      className="text-blue-600 hover:underline"
+                      className="text-blue-600 hover:underline cursor-pointer"
                     >
                       Edit
                     </button>
@@ -236,7 +236,7 @@ const filteredQuestions = questions.filter(q =>
                           console.error('Delete failed:', err);
                         }
                       }}
-                      className="text-red-600 hover:underline"
+                      className="text-red-600 hover:underline cursor-pointer"
                     >
                       Delete
                     </button>
